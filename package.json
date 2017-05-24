@@ -1,0 +1,37 @@
+{
+  "name": "pinyin-messenger",
+  "version": "1.0.0",
+  "description": "A Facebook Messenger bot to convert between Pinyin with tone marks and Pinyin with tone numbers.",
+  "main": "index.js",
+  "files": [],
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pepebecker/pinyin-messenger"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "hanzi",
+    "pinyin",
+    "cangjie",
+    "chinese",
+    "mandarin"
+  ],
+  "author": "Pepe Becker <mail@pepebecker.com> (http://pepebecker.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pepebecker/pinyin-messenger/issues"
+  },
+  "homepage": "https://github.com/pepebecker/pinyin-messenger#readme",
+  "dependencies": {
+    "messenger-bot": "^2.4.0",
+    "pinyin-bot-core": "pepebecker/pinyin-bot-core"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
