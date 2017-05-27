@@ -5,8 +5,6 @@ const Bot = require('messenger-bot')
 const botCore = require('pinyin-bot-core')
  
 let bot = new Bot(require('./options.json'))
-
-botCore.setPlatform('messenger')
  
 bot.on('error', (err) => {
   console.log(err.message)
