@@ -14,7 +14,9 @@ bot.on('error', (err) => {
  
 bot.on('message', (payload, reply) => {
   let text = payload.message.text
-  botCore.processMessage(text, reply)
+  botCore.processMessage(text, (res) => {
+  	reply({text: res})
+  })
 })
  
 http.createServer(bot.middleware()).listen(8081, (error) => {
