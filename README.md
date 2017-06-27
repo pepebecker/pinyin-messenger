@@ -9,6 +9,8 @@
 
 ## Usage
 
+On Facebook, in the lower right searchbar, search for `pinyinbot` and send him some Chinese text, for example `我喜欢吃面条`. He will reply which the same text in the phonic language called Pinyin. In this case he would reply with `wǒ xǐ huān chī miàn tiáo`.
+
 ![Usage Animation](pinyin-bot.gif)
 
 ## Related
