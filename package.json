@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/pepebecker/pinyin-messenger#readme",
   "dependencies": {
+    "ip": "^1.1.5",
     "messenger-bot": "^2.4.0",
     "pinyin-bot-core": "pepebecker/pinyin-bot-core"
   },

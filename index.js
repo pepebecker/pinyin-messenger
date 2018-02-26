@@ -1,8 +1,9 @@
 'use strict'
 
-const http = require('http')
-const Bot = require('messenger-bot')
 const botCore = require('pinyin-bot-core')
+const Bot = require('messenger-bot')
+const http = require('http')
+const ip = require('ip')
  
 let bot = new Bot(require('./options.json'))
  
