@@ -17,11 +17,11 @@ bot.on('message', (payload, reply) => {
   })
 })
  
-http.createServer(bot.middleware()).listen(8081, (error) => {
-  if (error) {
-    console.error(error)
+const port = Number(process.env.PORT || 8080)
+http.createServer(bot.middleware()).listen(port, ip.address(), err => {
+  if (err) {
+    console.error(err)
     process.exit(1)
   }
-
-  console.log('Server running on port 8081')
+  console.log(`Server running on http://${ip.address()}:${port}`)
 })
