@@ -19,6 +19,8 @@ On Facebook, in the lower right search bar, search for pinyinbot and send him so
 - [`pinyin-split`](https://github.com/pepebecker/pinyin-split)
 - [`find-hanzi`](https://github.com/pepebecker/find-hanzi)
 - [`hsk-words`](https://github.com/pepebecker/hsk-words)
+- [`cedict`](https://github.com/pepebecker/cedict)
+- [`mdbg`](https://github.com/pepebecker/mdbg)
 - [`pinyin-or-hanzi`](https://github.com/pepebecker/pinyin-or-hanzi)
 - [`hanzi-to-pinyin`](https://github.com/pepebecker/hanzi-to-pinyin)
 - [`pinyin-convert`](https://github.com/pepebecker/pinyin-convert)
@@ -26,6 +28,10 @@ On Facebook, in the lower right search bar, search for pinyinbot and send him so
 - [`pinyin-api`](https://github.com/pepebecker/pinyin-api)
 - [`pinyin-bot-core`](https://github.com/pepebecker/pinyin-bot-core)
 - [`pinyin-telegram`](https://github.com/pepebecker/pinyin-telegram)
+- [`pinyin-line`](https://github.com/pepebecker/pinyin-line)
+- [`pinyin-chrome`](https://github.com/pepebecker/pinyin-chrome)
+- [`pinyin-cli`](https://github.com/pepebecker/pinyin-cli)
+- [`hanzi-cli`](https://github.com/pepebecker/hanzi-cli)
 
 ## Contributing
 
