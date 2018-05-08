@@ -6,7 +6,8 @@
   "files": [],
   "scripts": {
     "start": "node index.js",
-    "watch": "nodemon index.js"
+    "watch": "nodemon index.js",
+    "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "pinyin-bot-core": "^1.4.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.4"
+    "nodemon": "^1.17.4",
+    "pm2": "^2.10.3"
   }
 }
