@@ -28,10 +28,7 @@ const callSendAPI = (sender_psid, body) => {
 }
 
 const sendTextMessage = (sender_psid, text) => {
-  callSendAPI(sender_psid, {
-    message: { text },
-    sender_action: 'typing_off'
-  })
+  callSendAPI(sender_psid, { message: { text } })
 }
 
 const sendTypingIndicator = (sender_psid, on = true) => {
