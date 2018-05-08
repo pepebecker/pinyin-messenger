@@ -40,6 +40,7 @@ const handleMessage = (sender_psid, received_message) => {
     sendTypingIndicator(sender_psid)
     botCore.processMessage(received_message.text)
     .then(result => {
+      sendTypingIndicator(false)
       sendTextMessage(sender_psid, result)
     })
     .catch(err => {
