@@ -7,16 +7,15 @@ const request = require('request')
 
 const app = express().use(bodyParser.json())
 
-const callSendAPI = (sender_psid, response) => {
+const callSendAPI = (sender_psid, body) => {
   const PAGE_ACCESS_TOKEN = process.env.PINYIN_MESSENGER_TOKEN
   if (!PAGE_ACCESS_TOKEN) {
     console.error('You have to export PINYIN_MESSENGER_TOKEN in your envirement variables')
     process.exit(1)
   }
-  const request_body = {
-    "recipient": { "id": sender_psid },
-    "message": response
-  }
+  const request_body = Object.assign({}, body, {
+    "recipient": { "id": sender_psid }
+  })
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
@@ -28,15 +27,30 @@ const callSendAPI = (sender_psid, response) => {
   })
 }
 
+const sendTextMessage = (sender_psid, text) => {
+  callSendAPI(sender_psid, {
+    message: { text },
+    sender_action: 'typing_off'
+  })
+}
+
+const sendTypingIndicator = (sender_psid, on = true) => {
+  callSendAPI(sender_psid, { sender_action: 'typing_' + (on ? 'on' : 'off') })
+}
+
 const handleMessage = (sender_psid, received_message) => {
   if (received_message.text) {
+    sendTypingIndicator(sender_psid)
     botCore.processMessage(received_message.text)
     .then(result => {
-      callSendAPI(sender_psid, { text: result })
+      sendTextMessage(sender_psid, result)
     })
-    .catch(console.error)
+    .catch(err => {
+      console.error(error)
+      sendTypingIndicator(false)
+    })
   } else {
-    callSendAPI(sender_psid, { text: 'I can only reply to text messages at the moment' })
+    sendTextMessage(sender_psid, 'I can only reply to text messages at the moment')
   }
 }
 
