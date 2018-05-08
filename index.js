@@ -23,7 +23,7 @@ const callSendAPI = (sender_psid, body) => {
     "json": request_body
   }, (err, res, body) => {
     if (err) console.error("Failed to send message:" + err)
-    else console.log('Message sent:', response)
+    else console.log('Message sent:', request_body)
   })
 }
 
