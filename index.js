@@ -3,27 +3,62 @@
 const botCore = require('pinyin-bot-core')
 const bodyParser = require('body-parser')
 const express = require('express')
+const request = require('request')
 
 const app = express().use(bodyParser.json())
 
-app.post('/webhook', (req, res) => {
-  // Checks this is an event from a page subscription
-  if (req.body.object === 'page') {
-    // Iterates over each entry - there may be multiple if batched
-    req.body.entry.forEach(entry => {
-      // Gets the body of the webhook event
-      let webhook_event = entry.messaging[0]
-      console.log(webhook_event)
+const callSendAPI = (sender_psid, response) => {
+  const PAGE_ACCESS_TOKEN = process.env.PINYIN_MESSENGER_TOKEN
+  if (!PAGE_ACCESS_TOKEN) {
+    console.error('You have to export PINYIN_MESSENGER_TOKEN in your envirement variables')
+    process.exit(1)
+  }
+  const request_body = {
+    "recipient": { "id": sender_psid },
+    "message": response
+  }
+  request({
+    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "qs": { "access_token": PAGE_ACCESS_TOKEN },
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    if (err) console.error("Unable to send message:" + err)
+    else console.log('Message Sent:', response)
+  })
+}
 
-      // Get the sender PSID
-      let sender_psid = webhook_event.sender.id
-      console.log('Sender PSID: ' + sender_psid)
+const handleMessage = (sender_psid, received_message) => {
+  let response = {}
+  if (received_message.text) {
+    response.text = `You sent the message: "${received_message.text}". Now send me an image!`
+  } else {
+    response.text = 'I can only reply to text messages at the moment'
+  } 
+  callSendAPI(sender_psid, response)
+}
+
+const handlePostback = (sender_psid, received_postback) => {
+
+}
+
+app.post('/webhook', (req, res) => {
+  if (req.body.object === 'page') {
+    req.body.entry.forEach(entry => {
+      const webhook_event = entry.messaging[0]
+      if (webhook_event.message) {
+        console.log('Message Received:', webhook_event.message)
+        handleMessage(webhook_event.sender.id, webhook_event.message)
+      } else if (webhook_event.postback) {
+        console.log('Postback Received:', webhook_event.postback)
+        handlePostback(webhook_event.sender.id, webhook_event.postback)
+      } else {
+        console.log('Event Received:', webhook_event)
+      }
     })
 
-    // Returns a '200 OK' response to all requests
     res.status(200).send('EVENT_RECEIVED')
   } else {
-    // Returns a '404 Not Found' if event is not from a page subscription
     res.sendStatus(404)
   }
 })
@@ -35,41 +70,19 @@ app.get('/webhook', (req, res) => {
     process.exit(1)
   }
 
-  // Parse the query params
   const mode = req.query['hub.mode']
   const token = req.query['hub.verify_token']
   const challenge = req.query['hub.challenge']
 
-  // Checks if a token and mode is in the query string of the request
   if (mode && token) {
-    // Checks the mode and token sent is correct
     if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-      // Responds with the challenge token from the request
       console.log('WEBHOOK_VERIFIED')
       res.status(200).send(challenge)
     } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
       res.sendStatus(403)
     }
   }
 })
-
-// let bot = new Bot({
-//   token: process.env.PINYIN_MESSENGER_TOKEN,
-//   verify: process.env.PINYIN_MESSENGER_VERIFY,
-//   app_secret: process.env.PINYIN_MESSENGER_APP_SECRET
-// })
- 
-// bot.on('error', (err) => {
-//   console.log(err.message)
-// })
- 
-// bot.on('message', (payload, reply) => {
-//   let text = payload.message.text
-//   botCore.processMessage(text, (res) => {
-//   	reply({text: res})
-//   })
-// })
  
 const port = Number(process.env.PORT || 8080)
 app.listen(port, () => console.log(`Server running on port ${port}`))
