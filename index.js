@@ -5,7 +5,11 @@ const Bot = require('messenger-bot')
 const http = require('http')
 const ip = require('ip')
  
-let bot = new Bot(require('./options.json'))
+let bot = new Bot({
+  token: process.env.PINYIN_MESSENGER_TOKEN,
+  verify: process.env.PINYIN_MESSENGER_VERIFY,
+  app_secret: process.env.PINYIN_MESSENGER_APP_SECRET
+})
  
 bot.on('error', (err) => {
   console.log(err.message)

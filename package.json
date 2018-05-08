@@ -30,9 +30,9 @@
   "dependencies": {
     "ip": "^1.1.5",
     "messenger-bot": "^2.4.0",
-    "pinyin-bot-core": "pepebecker/pinyin-bot-core"
+    "pinyin-bot-core": "^1.4.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.17.4"
   }
 }
