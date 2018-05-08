@@ -23,19 +23,21 @@ const callSendAPI = (sender_psid, response) => {
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
-    if (err) console.error("Unable to send message:" + err)
-    else console.log('Message Sent:', response)
+    if (err) console.error("Failed to send message:" + err)
+    else console.log('Message sent:', response)
   })
 }
 
 const handleMessage = (sender_psid, received_message) => {
-  let response = {}
   if (received_message.text) {
-    response.text = `You sent the message: "${received_message.text}". Now send me an image!`
+    botCore.processMessage(received_message.text)
+    .then(result => {
+      callSendAPI(sender_psid, { text: result })
+    })
+    .catch(console.error)
   } else {
-    response.text = 'I can only reply to text messages at the moment'
-  } 
-  callSendAPI(sender_psid, response)
+    callSendAPI(sender_psid, { text: 'I can only reply to text messages at the moment' })
+  }
 }
 
 const handlePostback = (sender_psid, received_postback) => {
@@ -47,13 +49,13 @@ app.post('/webhook', (req, res) => {
     req.body.entry.forEach(entry => {
       const webhook_event = entry.messaging[0]
       if (webhook_event.message) {
-        console.log('Message Received:', webhook_event.message)
+        console.log('Message received:', webhook_event.message)
         handleMessage(webhook_event.sender.id, webhook_event.message)
       } else if (webhook_event.postback) {
-        console.log('Postback Received:', webhook_event.postback)
+        console.log('Postback received:', webhook_event.postback)
         handlePostback(webhook_event.sender.id, webhook_event.postback)
       } else {
-        console.log('Event Received:', webhook_event)
+        console.log('Event received:', webhook_event)
       }
     })
 
