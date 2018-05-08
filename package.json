@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/pepebecker/pinyin-messenger#readme",
   "dependencies": {
-    "ip": "^1.1.5",
-    "messenger-bot": "^2.4.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
     "pinyin-bot-core": "^1.4.0"
   },
   "devDependencies": {
