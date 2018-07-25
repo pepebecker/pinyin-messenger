@@ -25,19 +25,19 @@ module.exports = {
    */
   deploy : {
     production : {
-      user : 'root',
+      user : 'pepe',
       host : 'celsian.pepebecker.com',
       ref  : 'origin/master',
       repo : 'https://github.com/pepebecker/pinyin-messenger.git',
-      path : '/root/apps/production/pinyin-messenger',
+      path : '/home/pepe/apps/production/pinyin-messenger',
       'post-deploy' : source_profile + 'npm install && pm2 reload ecosystem.config.js --env production'
     },
     dev : {
-      user : 'root',
+      user : 'pepe',
       host : 'celsian.pepebecker.com',
       ref  : 'origin/master',
       repo : 'https://github.com/pepebecker/pinyin-messenger.git',
-      path : '/root/apps/development/pinyin-messenger',
+      path : '/home/pepe/apps/development/pinyin-messenger',
       'post-deploy': source_profile + 'npm install && pm2 reload ecosystem.config.js --env dev',
       env  : {
         NODE_ENV: 'dev'
