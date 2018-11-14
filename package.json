@@ -31,7 +31,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "pinyin-bot-core": "^1.15.0",
+    "pinyin-bot-core": "^1.16.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
